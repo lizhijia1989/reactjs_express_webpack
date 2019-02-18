@@ -1,21 +1,18 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { Link } from 'react-router-dom';
 
-import '../css/index.css';
-
-export default class Index extends Component {
+export default class Index extends React.Component {
   constructor(props) {
     super(props);
-    console.log('Index contructor', props);
-  }
-  handleClick = () => {
-    debugger;
+    console.log('Index', props)
   }
   render() {
     return (
       <div>
-        <h1 className="logo">Ctrip</h1>
-        <p className="blue" onClick={() => this.handleClick()}>content</p>
-        <a href="/test">go to test page</a>
+        <h1>Index</h1>
+        <a href='/Page1'>Page1</a>
+        <br />
+        <Link to={{ pathname: '/Page1', query: { a: 1, b: 2 }, state: { a: 1, b: 2 } }}>Link to Page1 with params</Link>
       </div>
     );
   }

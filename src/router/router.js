@@ -1,21 +1,19 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route } from 'react-router-dom';
 
-import Index from '../pages/index.js';
-import Test from '../pages/test.js';
+import Header from '../pages/Header.js';
+import Index from '../pages/Index.js';
+import Page1 from '../pages/Page1.js';
+import Page2 from '../pages/Page2.js';
 
-export default class AppRouter extends Component {
-  constructor(props) {
-      super(props);
-  }
-  render() {
-    return (
-      <BrowserRouter>
-        <Switch>
-          <Route exact path="/" component={Index}></Route>
-          <Route path="/test" component={Test}></Route>
-        </Switch>
-      </BrowserRouter>
-    )
-  }
-}
+const AppRouter = () => (
+  <BrowserRouter>
+    <div>
+      <Header />
+      <Route exact path="/" component={Index} />
+      <Route path="/Page1" component={Page1}></Route>
+      <Route path="/Page2" component={Page2}></Route>
+    </div>
+  </BrowserRouter>
+);
+export default AppRouter;
