@@ -4,11 +4,11 @@ import { Link } from 'react-router-dom';
 export default class Index extends React.Component {
   constructor(props) {
     super(props);
-    console.log('Index', props)
+    console.log('Index', props);
   }
   render() {
     return (
-      <div>
+      <div style={{ position: 'relative' }}>
         <h1>Index</h1>
         <a href='/Page1'>Page1</a>
         <br />
