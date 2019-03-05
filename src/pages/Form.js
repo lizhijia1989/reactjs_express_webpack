@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+const API_TEST = 'http://localhost:3001/test';
+const API_SUBMIT_FORM = 'http://localhost:3001/api/submitForm';
 
 export default class Form extends Component {
   constructor(props) {
@@ -8,6 +10,19 @@ export default class Form extends Component {
       username: '',
       password: '',
     };
+  }
+  componentWillMount() {
+    console.log('componentWillMount')
+    fetch(API_TEST, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
+    }).then(res => res.json()).then(res => {
+      console.log('TEST GET', res);
+    }).catch(e => {
+      console.log('TEST GET ERROR', e);
+    });
   }
   handleUsernameChange = e => {
     this.setState({
@@ -22,13 +37,30 @@ export default class Form extends Component {
     console.log('handlePasswordChange', e.target);
   }
   handleSubmit = e => {
+    e.preventDefault();
+    e.stopPropagation();
+    console.log('eeee', e, e.nativeEvent)
     const formData = new FormData(e.target);
     console.log('handleSubmit', formData.get('username'), formData.getAll('gender'), formData.get('city'), formData.getAll('hobby'));
+    fetch(API_SUBMIT_FORM, {
+      method: 'POST',
+      headers: new Headers({
+        'Content-Type': 'application/x-www-form-urlencoded',
+      }),
+      // credentials: 'include',
+      // mode: 'no-cors',
+      body: formData,
+      // body: 'a=1&b=2',
+    }).then(res => res.json()).then(res => {
+      console.log('POST', res);
+    }).catch(e => {
+      console.log('POST ERROR', e);
+    });
   }
   render() {
     return (
-      <div>
-        <form action='/api/test' method='post' target='hidden_frame' onSubmit={this.handleSubmit}>
+      <div onClick={() => { console.log('form div') }}>
+        <form target='hidden_frame' onSubmit={this.handleSubmit}>
           用户名
           <input type='text' name='username' value={this.state.username} onChange={this.handleUsernameChange} />
           <br />
@@ -48,14 +80,13 @@ export default class Form extends Component {
           </select>
           <br />
           爱好
-          <label><input type='checkbox' name='hobby' value='运动' checked readOnly /> 运动</label>
-          <label><input type='checkbox' name='hobby' value='游戏' /> 游戏</label>
-          <label><input type='checkbox' name='hobby' value='电影' /> 电影</label>
+          <label onClick={e => { e.stopPropagation(); }}><input type='checkbox' name='hobby' value='运动' checked readOnly /> 运动</label>
+          <label onClick={e => { e.stopPropagation(); }}><input type='checkbox' name='hobby' value='游戏' /> 游戏</label>
+          <label onClick={e => { e.stopPropagation(); }}><input type='checkbox' name='hobby' value='电影' /> 电影</label>
           <br />
-          <input type='submit' value='提交' />
+          <input type='submit' value='提交input' onClick={e => { e.stopPropagation(); }} />
           <input type='hidden' value='' />
         </form>
-        <input type='button' value='提交2' onClick={this.handleSubmit} />
         <iframe name='hidden_frame' id="hidden_frame" style={{ display: 'none' }}></iframe>
       </div>
     );
