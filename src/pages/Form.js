@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 const API_TEST = 'http://localhost:3001/test';
 const API_SUBMIT_FORM = 'http://localhost:3001/api/submitForm';
@@ -10,6 +11,7 @@ export default class Form extends Component {
       username: '',
       password: '',
     };
+    console.log('constructor', props)
   }
   componentWillMount() {
     console.log('componentWillMount')
@@ -50,9 +52,11 @@ export default class Form extends Component {
       // credentials: 'include',
       // mode: 'no-cors',
       body: formData,
-      // body: 'a=1&b=2',
     }).then(res => res.json()).then(res => {
       console.log('POST', res);
+      if (res && res.status === 200) {
+        this.props.history.push('/');
+      }
     }).catch(e => {
       console.log('POST ERROR', e);
     });
@@ -80,7 +84,7 @@ export default class Form extends Component {
           </select>
           <br />
           爱好
-          <label onClick={e => { e.stopPropagation(); }}><input type='checkbox' name='hobby' value='运动' checked readOnly /> 运动</label>
+          <label onClick={e => { e.stopPropagation(); }}><input type='checkbox' name='hobby' value='运动' /> 运动</label>
           <label onClick={e => { e.stopPropagation(); }}><input type='checkbox' name='hobby' value='游戏' /> 游戏</label>
           <label onClick={e => { e.stopPropagation(); }}><input type='checkbox' name='hobby' value='电影' /> 电影</label>
           <br />
