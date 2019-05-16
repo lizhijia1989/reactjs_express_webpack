@@ -1,2 +1,4 @@
 # reactjs_webpack
-reactjs webpack
+npm install
+npm start
+node service/bin/www
