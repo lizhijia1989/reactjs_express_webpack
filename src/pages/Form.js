@@ -41,17 +41,20 @@ export default class Form extends Component {
   handleSubmit = e => {
     e.preventDefault();
     e.stopPropagation();
-    console.log('eeee', e, e.nativeEvent)
+    console.log('e', e, e.nativeEvent)
     const formData = new FormData(e.target);
     console.log('handleSubmit', formData.get('username'), formData.getAll('gender'), formData.get('city'), formData.getAll('hobby'));
     fetch(API_SUBMIT_FORM, {
       method: 'POST',
       headers: new Headers({
-        'Content-Type': 'application/x-www-form-urlencoded',
+        // 'Accept': 'application/json,text/plain,*/*',
+        // 'Content-Type': 'application/x-www-form-urlencoded',
+        'Content-Type': 'application/json;charset=utf-8',
       }),
-      // credentials: 'include',
-      // mode: 'no-cors',
-      body: formData,
+      credentials: 'include',
+      // mode: 'cors',
+      // body: formData,
+      body: JSON.stringify({a:1,b:2}),
     }).then(res => res.json()).then(res => {
       console.log('POST', res);
       if (res && res.status === 200) {
