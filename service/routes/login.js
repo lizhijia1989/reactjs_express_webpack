@@ -1,21 +1,21 @@
 var express = require('express');
 var router = express.Router();
 
-router.route('/submitForm')
+router.route('/login')
   .get(function(req, res) {
-    console.log('submitForm GET');
+    console.log('login GET');
     res.json({
       status: 200,
       info: 'GET ok'
     });
   })
   .post(function(req, res) {
-    console.log('submitForm POST', req.body, req.cookies);
+    console.log('login POST', req.body, req.cookies);
     if (!req.cookies.test) {
       res.cookie('test', {
         username: 'lzj'
       }, {
-        httpOnly: true,
+        // httpOnly: true,
         // maxAge: 1 * 24 * 60 * 60 * 1000,
       });
     } else {

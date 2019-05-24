@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 
 import Header from '../pages/components/Header.js';
-import Index from '../pages/Index.js';
-import Form from '../pages/Form.js';
-import Page2 from '../pages/Page2.js';
+import Index from '../pages/index.js';
+import Form from '../pages/form.js';
+import Login from '../pages/login.js';
 
 const AppRouter = () => (
   <BrowserRouter>
@@ -12,7 +12,7 @@ const AppRouter = () => (
       <Header />
       <Route exact path="/" component={Index} />
       <Route path="/Form" component={Form}></Route>
-      <Route path="/Page2" component={Page2}></Route>
+      <Route path="/Login" component={Login}></Route>
     </div>
   </BrowserRouter>
 );
