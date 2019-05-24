@@ -45,7 +45,7 @@ var apiRouter = require('./routes/api');
 app.use('/api', apiRouter);
 
 // 登录
-var loginRouter = require('.routes/login.js');
+var loginRouter = require('./routes/login.js');
 app.use('/api', loginRouter);
 
 

@@ -1,5 +1,7 @@
 import React from 'react';
 
+const API_LOGIN_URL = 'http://localhost:3001/api/login';
+
 export default class Page2 extends React.Component {
   constructor(props) {
     super(props);
@@ -11,23 +13,57 @@ export default class Page2 extends React.Component {
     console.log('Login', props);
   }
 
+  fetchLogin = async (method, req) => {
+    const request = {
+      method,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+      body: JSON.stringify(req),
+    };
+    console.log('request', request);
+    return await new Promise((resolve, reject) => {
+      fetch(API_LOGIN_URL, request).then(res => res.json()).then(res => {
+        console.log('TEST GET', res);
+        resolve(res);
+      }).catch(e => {
+        console.log('TEST GET ERROR', e);
+        reject(e);
+      });
+    })
+  }
+
   handleInputTextChanged = (e, state) => {
     this.setState({
       [state]: e.target.value
     });
   }
 
-  handleSubmit = e => {
+  handleSubmit = async e => {
     e.preventDefault();
     console.log('handleSubmit');
     const formData = new FormData(e.target);
     console.log('formData', formData.get('username'), formData.get('password'));
-    if (this.state.username && this.state.password) {
-      this.setState({
-        isLogin: true
-      });
+    if (!this.state.username || !this.state.password) {
+      alert('请输入用户名密码');
+      return;
+    }
+    const res = await this.fetchLogin('POST', {
+      username: this.state.username,
+      password: this.state.password
+    });
+    console.log('res', res);
+    if (res.status === 200) {
+      if (res.code === 1) {
+        this.setState({
+          isLogin: true
+        });
+      } else if (res.code === 0) {
+        alert('用户名密码错误');
+      }
     } else {
-      alert('用户名密码错误');
+      alert('网络不给力，请重试');
     }
   }
 
