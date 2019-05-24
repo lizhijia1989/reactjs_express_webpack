@@ -22,14 +22,14 @@ export default class Page2 extends React.Component {
       credentials: 'include',
       body: JSON.stringify(req),
     };
-    console.log('request', request);
+    console.log('fetchLogin req', request);
     return await new Promise((resolve, reject) => {
       fetch(API_LOGIN_URL, request).then(res => res.json()).then(res => {
-        console.log('TEST GET', res);
+        console.log('fetchLogin res', res);
         resolve(res);
       }).catch(e => {
-        console.log('TEST GET ERROR', e);
-        reject(e);
+        console.log('fetchLogin ERROR', e);
+        reject(null);
       });
     })
   }
@@ -53,7 +53,6 @@ export default class Page2 extends React.Component {
       username: this.state.username,
       password: this.state.password
     });
-    console.log('res', res);
     if (res.status === 200) {
       if (res.code === 1) {
         this.setState({

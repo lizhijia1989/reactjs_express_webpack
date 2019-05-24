@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 const json = {
-  title: 'login',
+  title: 'users',
   list: [
     {
       username: 'zhijiali',
@@ -12,16 +12,6 @@ const json = {
 }
 
 router.route('/login')
-  .get(function(req, res) {
-    console.log('login GET');
-    res.cookie('loginTest', {
-      isOK: true
-    });
-    res.json({
-      status: 200,
-      info: 'GET ok'
-    });
-  })
   .post(function(req, res) {
     console.log('login POST', req.body, req.cookies);
     // if (!req.cookies.test) {
@@ -40,7 +30,7 @@ router.route('/login')
     if (isRegisteredUser) {
       res.json({
         status: 200,
-        code: 1,
+        code: 1, // 1:已注册 0:未注册
         info: 'POST ok，已注册用户',
       });
     } else {
