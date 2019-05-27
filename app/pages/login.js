@@ -10,7 +10,7 @@ export default class Page2 extends React.Component {
       password: '',
       isLogin: false,
     };
-    console.log('Login', props);
+    console.log('login', props);
   }
 
   fetchLogin = async (method, req) => {
@@ -58,6 +58,7 @@ export default class Page2 extends React.Component {
         this.setState({
           isLogin: true
         });
+
       } else if (res.code === 0) {
         alert('用户名密码错误');
       }
@@ -91,7 +92,7 @@ export default class Page2 extends React.Component {
   render() {
     return (
       <div className='container'>
-        <h1 style={{ marginBottom: '10px' }}>Login</h1>
+        <h1 style={{ marginBottom: '10px' }}>login</h1>
         {this.state.isLogin ? this.renderLoginedDiv() : this.renderLoginForm()}
       </div>
     );
